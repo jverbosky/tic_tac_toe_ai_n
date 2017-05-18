@@ -1,0 +1,38 @@
+<!-- /views/setup.erb -->
+
+<p>Please select the player types and board size:</p>
+<form method="post" action="start_game">
+  <p>Player 1 (X):
+    <select type="text" name="setup[p1_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
+      <option value="Human">Human</option>
+      <option value="Perfect">Perfect</option>
+      <option value="Random">Random</option>
+      <option value="Sequential">Sequential</option>
+      <option value="Unbeatable">Unbeatable</option>
+    </select>
+  </p>
+  <p>Player 2 (O):
+    <select type="text" name="setup[p2_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
+      <option value="Human">Human</option>
+      <option value="Perfect">Perfect</option>
+      <option value="Random">Random</option>
+      <option value="Sequential">Sequential</option>
+      <option value="Unbeatable">Unbeatable</option>
+    </select>
+  </p>
+  <p>Board Size
+    <select type="text" name="setup[board_size]">
+      <option value=3>3 x 3</option>
+      <option value=4>4 x 4</option>
+      <option value=5>5 x 5</option>
+      <option value=6>6 x 6</option>
+      <option value=7>7 x 7</option>
+      <option value=8>8 x 8</option>
+      <option value=9>9 x 9</option>
+      <option value=10>10 x 10</option>
+      <option value=11>11 x 11</option>
+      <option value=12>12 x 12</option>
+    </select>
+  </p>
+  <input type="submit" value="Submit">
+</form>

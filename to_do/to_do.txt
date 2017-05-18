@@ -1,0 +1,7 @@
+Tic Tac Toe N (by 5/29)
+
+1) Redesign web app to allow n * n board.
+
+2) Research how to develop an unbeatable player for an n * n board and update with results.
+
+3) When done, ping Jeremy, Jon and Amanda.

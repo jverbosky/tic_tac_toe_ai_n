@@ -1,0 +1,57 @@
+<!--
+/views/layout.erb
+- used to host common content for views
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tic Tac Toe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/images/favicon.ico?" type="image/x-icon">
+
+  </head>
+  <body>
+  <header class="red">
+  </header>
+  <section>
+
+    <div class="blue">
+      <table class="center-block">
+        <tr>
+          <a class="title" href="https://www.linkedin.com/in/johnverbosky" target="_blank">Tic Tac Toe</a>
+        </tr>
+        <tr>
+          <td class="score yellow">X Score: <%= $x_score %></td>
+          <td class="score yellow">O Score: <%= $o_score %></td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- game board -->
+    <div class = "red">
+      <div class="center-block">
+        <table id="table_id" class="board-table">
+          <% rows.each do |row| %>
+          <tr>
+            <% row.each do |space| %>
+            <td class="board-td image"><img src="/images/empty.png" alt=<%= space %>></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <%= yield %>  <!-- load unique content from other .erb files -->
+    </div>
+
+  </section>
+
+  <script type="text/javascript" src="min_javascript.js"></script>
+
+  </body>
+</html>
