@@ -4,19 +4,16 @@
 require_relative "messaging.rb"  # class to handle messaging
 require_relative "win.rb"  # class to handle endgame evaluation
 require_relative "../board/board.rb"  # class to handle board updates and queries
-# require_relative "../board/position.rb"  # class to board locations to array indexes
 require_relative "../players/player_perf.rb"  # class for unbeatable AI player
 require_relative "../players/player_perf_ns.rb"  # class for Newell & Simon unbeatable AI player
 require_relative "../players/player_rand.rb"  # class for random AI player
 require_relative "../players/player_seq.rb"  # class for sequential AI player
 
-# Expand to allow 2 different perfect player types (different moves)
-
 # class to handle game logic
 class Game
 
   attr_accessor :move, :round
-  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :messaging
+  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :pt_current, :messaging
   # attr_accessor :move, :round, :board, :p1_type, :p2_type, :player, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
   # attr_reader :pt_next, :messaging, :win  # use for unit testing
 
@@ -24,7 +21,6 @@ class Game
     @size = size
     @board = Board.new(size)  # Board class instance
     @messaging = Messaging.new  # Messaging class instance, accessible to app.rb
-    # @position = Position.new  # Position class instance
     @win = Win.new(size)  # Win class instance
     @win.game_board = @board.game_board  # populate Win board for calculating wins
     @win.populate_wins  # populate wins array in Win class
@@ -39,7 +35,6 @@ class Game
     @m_current = ""  # view messaging - current player character (X/O)
     @m_next = ""  # view messaging - next player character (O/X)
     @move = ""  # view messaging - current player's move
-    @board_index = ""  # board array index value (based on @move)
   end
 
   # Method to output the game board based on user-specified size
@@ -86,15 +81,12 @@ class Game
   def make_move(move)
     set_players  # update @player_, @player_type_ and @mark_ variables for current round
     @pt_current == "Human" ? human_move(move) : ai_move  # move() call based on player type
-    # human_move(move)  # call human move
-    # @board_index = @position.get_index(@move)  # convert human friendly move to board index value
-    @board_index = @move.to_i  # convert human friendly move to board index value
     @round += 1 if valid_move?  # if the move is valid, increment the @round counter
   end
 
   # Method to assign move to @move instance variable for ease-of-access
   def human_move(move)
-    @move = move
+    @move = move.to_i
   end
 
   # Method to collect move from AI player instance
@@ -110,8 +102,8 @@ class Game
 
   # Method that updates the board and messaging accordingly, called by make_move
   def valid_move?
-    if @board.position_open?(@board_index) # determine if position open
-      @board.set_position(@board_index, @m_current)  # if so, update the board and messaging
+    if @board.position_open?(@move) # determine if position open
+      @board.set_position(@move, @m_current)  # if so, update the board and messaging
       @messaging.valid_move(@round, @move, @pt_current, @m_current, @pt_next, @m_next)
       return true  # drives round increment in make_move
     else  # if position is already taken

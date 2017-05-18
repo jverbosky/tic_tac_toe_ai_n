@@ -7,7 +7,7 @@ class PlayerRandom
 
   def initialize
     # @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]  # "human friendly" board positions
-    @moves = [0, 1, 2, 3, 4, 5, 6, 7, 8]  # "human friendly" board positions
+    @moves = [0, 1, 2, 3, 4, 5, 6, 7, 8]  # board positions
   end
 
   # Method to return random open position
@@ -19,3 +19,10 @@ class PlayerRandom
   end
 
 end
+
+# Sandbox testing
+
+# board = Board.new(3)
+# board.game_board = ["X", "O", "X", "O", "X", "O", "O", "", ""]
+# rand = PlayerRandom.new
+# p rand.get_move(board.game_board)
