@@ -60,7 +60,7 @@ class TicTacToeAiNApp < Sinatra::Base
     else
       round = session[:game].round  # collect current round for messaging
       rows = session[:game].output_board  # grab the current board to display via layout.erb
-      # session[:messaging] = session[:game].messaging  # access messaging instance via game instance
+      session[:messaging] = session[:game].messaging  # access messaging instance via game instance
       mark = session[:game].m_current  # collect current mark for messaging
       feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
       erb :play, locals: {rows: rows, round: round, feedback: feedback, next_player: next_player}

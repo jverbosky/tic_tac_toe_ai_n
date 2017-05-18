@@ -14,7 +14,7 @@ class Messaging
   # Method to update @feedback and @prompt if move is valid
   def valid_move(round, move, pt_current, m_current, pt_next, m_next)
     # @feedback = "#{pt_current} #{m_current} took #{move} in round #{round}."
-    @feedback = "#{pt_next} #{m_current} took #{move} in round #{round + 1}."
+    @feedback = ""
     # @prompt = "Press <b>Next</b> for #{pt_next} #{m_next}'s move."
   end
 
