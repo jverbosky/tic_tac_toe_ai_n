@@ -40,27 +40,23 @@ class TicTacToeAiNApp < Sinatra::Base
     session[:game].select_players(player_type)  # initialize player objects based on player_type hash
     session[:p1_type] = session[:game].p1_type  # assign p1_type session to @p1_type in game.rb
     session[:p2_type] = session[:game].p2_type  # assign p1_type session to @p2_type in game.rb
-    # round = session[:game].round  # collect current round for messaging
-    # rows = session[:game].output_board  # grab the current board to display via layout.erb
     session[:game].set_players  # update player info
-    # session[:messaging] = session[:game].messaging  # access messaging instance via game instance
-    # mark = session[:game].m_current  # collect current mark for messaging
-    # feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
+    session[:messaging] = session[:game].messaging  # access messaging instance via game instance
     current_player = session[:game].pt_current
     next_player = session[:game].pt_next
     if current_player != "Human"
-      # "current player: #{current_player}"
       move = session[:game].make_move("")
       round = session[:game].round  # collect current round for messaging
       rows = session[:game].output_board  # grab the current board to display via layout.erb
       session[:messaging] = session[:game].messaging  # access messaging instance via game instance
-      mark = session[:game].m_current  # collect current mark for messaging
-      feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
+      if next_player == "Human"
+        mark = session[:game].m_next  # collect next mark for messaging
+        feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
+      end
       erb :play, locals: {rows: rows, round: round, feedback: feedback, next_player: next_player}
     else
       round = session[:game].round  # collect current round for messaging
       rows = session[:game].output_board  # grab the current board to display via layout.erb
-      session[:messaging] = session[:game].messaging  # access messaging instance via game instance
       mark = session[:game].m_current  # collect current mark for messaging
       feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
       erb :play, locals: {rows: rows, round: round, feedback: feedback, next_player: next_player}
@@ -86,17 +82,19 @@ class TicTacToeAiNApp < Sinatra::Base
     elsif feedback =~ /^That/  # if feedback ~ taken position, reprompt via play_human
       erb :play, locals: {rows: rows, round: round, feedback: feedback}
     elsif current_player != "Human"
-      # "current player: #{current_player}"
       move = session[:game].make_move("")
       if session[:game].game_over?
         rows = session[:game].output_board  # grab the current board to display via layout.erb
         winner = session[:game].end_game  # evaluate endgame items and collect winner for endgame messaging
         endgame_result = session[:messaging].display_results(session[:p1_type], session[:p2_type], winner)
-        # round -= 1  # roll back round count to reflect winning round
         erb :game_over, layout: :min_js_layout, locals: {rows: rows, round: round, result: endgame_result}  # display final results
       else
         round = session[:game].round  # collect current round for messaging
         rows = session[:game].output_board  # grab the current board to display via layout.erb
+        if next_player == "Human"
+          mark = session[:game].m_next  # collect next mark for messaging
+          feedback = session[:messaging].human_messaging(round, mark)  # update human player messaging
+        end
         erb :play, locals: {rows: rows, round: round, feedback: feedback, next_player: next_player}
       end
     else  # otherwise display move results

@@ -13,8 +13,8 @@ require_relative "../players/player_seq.rb"  # class for sequential AI player
 class Game
 
   attr_accessor :move, :round
-  # attr_reader :p1_type, :p2_type, :m_current, :pt_next, :pt_current, :messaging
-  attr_reader :p1_type, :p2_type, :m_current, :pt_next, :pt_current, :messaging, :board  # user for sandbox testing
+  attr_reader :p1_type, :p2_type, :m_current, :m_next, :pt_next, :pt_current, :messaging
+  # attr_reader :p1_type, :p2_type, :m_current, :pt_next, :pt_current, :messaging, :board  # user for sandbox testing
   # attr_accessor :move, :round, :board, :p1_type, :p2_type, :player, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
   # attr_reader :pt_next, :messaging, :win  # use for unit testing
 
