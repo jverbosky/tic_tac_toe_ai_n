@@ -6,7 +6,6 @@ class PlayerRandom
   # attr_accessor :moves  # use for unit testing
 
   def initialize(size)
-    # @moves = ["t1", "t2", "t3", "m1", "m2", "m3", "b1", "b2", "b3"]  # "human friendly" board positions
     @moves = [*0..(size*size)-1]  # board positions
   end
 

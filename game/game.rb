@@ -50,14 +50,14 @@ class Game
       when "Perfect" then @p1 = PlayerPerfect.new
       when "Unbeatable" then @p1 = PlayerPerfectNS.new
       when "Random" then @p1 = PlayerRandom.new(@size)
-      when "Sequential" then @p1 = PlayerSequential.new
+      when "Sequential" then @p1 = PlayerSequential.new(@size)
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
       when "Perfect" then @p2 = PlayerPerfect.new
       when "Unbeatable" then @p2 = PlayerPerfectNS.new
       when "Random" then @p2 = PlayerRandom.new(@size)
-      when "Sequential" then @p2 = PlayerSequential.new
+      when "Sequential" then @p2 = PlayerSequential.new(@size)
     end
   end
 
