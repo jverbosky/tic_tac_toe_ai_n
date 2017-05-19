@@ -2,4 +2,9 @@
 
 <h3>Round <%= round %></h3>
 <p><%= feedback %></p>
-<p>Please select a location.</p>
+
+<% if current_player != "Human" && next_player != "Human" %>
+  <p>Click anywhere on the board to continue.</p>
+<% else %>
+  <p>Please select a location.</p>
+<% end %>
