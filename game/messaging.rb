@@ -1,21 +1,16 @@
 # class to handle web app messaging
 class Messaging
 
-  # @feedback and @prompt need to be available to app.rb routes
-  attr_reader :feedback, :prompt
-  # attr_accessor :win
+  # @feedback needs to be available to app.rb routes
+  attr_reader :feedback
 
   def initialize
     @feedback = ""  # view messaging - move status or reprompt
-    @prompt = ""  # view messaging - player advance prompt
-    # @win = ""  # populated with winning locations by end_game in Game class
   end
 
   # Method to update @feedback and @prompt if move is valid
   def valid_move(round, move, pt_current, m_current, pt_next, m_next)
-    # @feedback = "#{pt_current} #{m_current} took #{move} in round #{round}."
     @feedback = ""
-    # @prompt = "Press <b>Next</b> for #{pt_next} #{m_next}'s move."
   end
 
   # Method to update @feedback with reprompt text if move is invalid
@@ -35,11 +30,9 @@ class Messaging
   # Method to display endgame messaging
   def display_results(p1_type, p2_type, winner)
     if winner == "X"
-      # return "#{p1_type} X won the game!<br>The winning positions were: #{win}"  # advise on win
-      return "#{p1_type} X won the game!"  # advise on win (revised for NxN board)
+      return "#{p1_type} X won the game!"  # advise on win
     elsif winner == "O"
-      # return "#{p2_type} O won the game!<br>The winning positions were: #{win}"  # advise on win
-      return "#{p2_type} O won the game!"  # advise on win (revised for NxN board)
+      return "#{p2_type} O won the game!"  # advise on win
     elsif winner == "tie"  # if no one won
       return "It was a tie!"  # advise on tie
     end
