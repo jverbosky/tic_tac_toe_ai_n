@@ -27,8 +27,8 @@ class TicTacToeAiNApp < Sinatra::Base
 
   # route to prompt player for game board size
   get '/' do
-    session[:intro] = [["", "", ""], ["", "", ""], ["", "", ""]]  # board for intro screens
-    erb :setup, layout: :min_js_layout, locals: {rows: session[:intro]}
+    intro = [["", "", ""], ["", "", ""], ["", "", ""]]  # board for intro screens
+    erb :setup, layout: :min_js_layout, locals: {rows: intro}
   end
 
   # route to handle game setup and start the game
@@ -46,26 +46,25 @@ class TicTacToeAiNApp < Sinatra::Base
     next_player = session[:game].pt_next
     if current_player != "Human"
       move = session[:game].make_move("")
-      round = session[:game].round  # collect current round for messaging
-      rows = session[:game].output_board  # grab the current board to display via layout.erb
-      session[:messaging] = session[:game].messaging  # access messaging instance via game instance
+      round = session[:game].round  # collect current round for messaging (incremented due to AI move)
+      rows = session[:game].output_board  # grab the updated board to display via layout.erb
       if next_player == "Human"
         mark = session[:game].m_next  # collect next mark for messaging
-        feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
+        feedback = session[:messaging].human_messaging(round, mark)  # update human player messaging
       end
       erb :play, locals: {rows: rows, round: round, feedback: feedback, current_player: current_player, next_player: next_player}
     else
       round = session[:game].round  # collect current round for messaging
       rows = session[:game].output_board  # grab the current board to display via layout.erb
       mark = session[:game].m_current  # collect current mark for messaging
-      feedback = session[:messaging].human_messaging(round, mark)  # update intro human player messaging
+      feedback = session[:messaging].human_messaging(round, mark)  # update human player messaging
       erb :play, locals: {rows: rows, round: round, feedback: feedback, current_player: current_player, next_player: next_player}
     end
   end
 
   # route to display game board, round and human player move details
-  post '/play_human' do
-    move = params[:location]  # collect the specified move from play_human form
+  post '/play' do
+    move = params[:location]  # collect the specified move from play form
     session[:game].make_move(move)  # evaluate move for route selection
     feedback = session[:messaging].feedback  # collect the resulting move messaging
     session[:game].set_players  # update player info
@@ -80,7 +79,7 @@ class TicTacToeAiNApp < Sinatra::Base
       round -= 1  # roll back round count to reflect winning round
       erb :game_over, layout: :min_js_layout, locals: {rows: rows, round: round, result: endgame_result}  # display final results
     elsif feedback =~ /^That/  # if feedback ~ taken position, reprompt via play_human
-      erb :play, locals: {rows: rows, round: round, feedback: feedback}
+      erb :play, locals: {rows: rows, round: round, feedback: feedback, current_player: current_player, next_player: next_player}
     elsif current_player != "Human"
       move = session[:game].make_move("")
       if session[:game].game_over?
