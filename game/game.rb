@@ -6,7 +6,7 @@ require_relative "win.rb"  # class to handle endgame evaluation
 require_relative "../board/board.rb"  # class to handle board updates and queries
 require_relative "../players/player_rand.rb"  # class for random AI player
 require_relative "../players/player_seq.rb"  # class for sequential AI player
-# require_relative "../players/player_unb.rb"  # class for unbeatable AI player
+require_relative "../players/player_unb.rb"  # class for unbeatable AI player
 
 # class to handle game logic
 class Game
@@ -48,13 +48,13 @@ class Game
     case @p1_type
       when "Random" then @p1 = PlayerRandom.new(@size)
       when "Sequential" then @p1 = PlayerSequential.new(@size)
-      # when "Unbeatable" then @p1 = PlayerUnbeatable.new
+      when "Unbeatable" then @p1 = PlayerUnbeatable.new(@size)
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
       when "Random" then @p2 = PlayerRandom.new(@size)
       when "Sequential" then @p2 = PlayerSequential.new(@size)
-      # when "Unbeatable" then @p2 = PlayerUnbeatable.new
+      when "Unbeatable" then @p2 = PlayerUnbeatable.new(@size)
     end
   end
 
