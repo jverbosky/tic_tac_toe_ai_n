@@ -200,14 +200,14 @@ end
 
 # Sandbox testing
 
-# mark = "O"
-# size = 3
-# board = Board.new(size)
-# win = Win.new(size)
-# win.game_board = board.game_board  # populate Win board for calculating wins
-# win.populate_wins  # populate wins array in Win class
-# unb = PlayerUnbeatable.new(size, win.wins)
-# board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
+mark = "O"
+size = 3
+board = Board.new(size)
+win = Win.new(size)
+win.game_board = board.game_board  # populate Win board for calculating wins
+win.populate_wins  # populate wins array in Win class
+unb = PlayerUnbeatable.new(size, win.wins)
+board.game_board = ["X", "", "", "", "", "", "", "", "", "", "", ""]
 
 # p board.get_x
 # p board.get_o

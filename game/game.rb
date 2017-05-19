@@ -48,13 +48,13 @@ class Game
     case @p1_type
       when "Random" then @p1 = PlayerRandom.new(@size)
       when "Sequential" then @p1 = PlayerSequential.new(@size)
-      when "Unbeatable" then @p1 = PlayerUnbeatable.new(@size)
+      when "Unbeatable" then @p1 = PlayerUnbeatable.new(@size, @win.wins)
     end
     @p2_type = player_type["p2_type"]
     case @p2_type
       when "Random" then @p2 = PlayerRandom.new(@size)
       when "Sequential" then @p2 = PlayerSequential.new(@size)
-      when "Unbeatable" then @p2 = PlayerUnbeatable.new(@size)
+      when "Unbeatable" then @p2 = PlayerUnbeatable.new(@size, @win.wins)
     end
   end
 
@@ -89,10 +89,8 @@ class Game
 
   # Method to collect move from AI player instance
   def ai_move
-    if @pt_current == "Perfect" # if AI player is perfect, pass the necessary info
-      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @round, @m_current)
-    elsif @pt_current == "Unbeatable"  # if AI player is unbeatable, no need to pass round
-      @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)
+    if @pt_current == "Unbeatable"  # if AI player is unbeatable, no need to pass round
+      @move = @player.get_move(@board.get_x, @board.get_o, @m_current)
     else  # otherwise just pass the current board to the random or sequential AI player
      @move = @player.get_move(@board.game_board)
     end
