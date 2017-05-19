@@ -11,7 +11,9 @@ require_relative "../game/game.rb"
 
 class TestPlayerPerfectNS < Minitest::Test
 
-  def test_1_round_1_X_takes_a_random_corner
+  # 3x3 board tests -----------------------------------------------
+
+  def test_1_round_1_X_takes_center
     size = 3
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -997,5 +999,85 @@ class TestPlayerPerfectNS < Minitest::Test
     result = force_block.include? move
     assert_equal(true, result)
   end
+
+  # 4x4 board tests -----------------------------------------------
+
+  def test_1_round_1_X_takes_random_corner
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    corners = [0, 3, 12, 15]
+    result = corners.include? move
+    assert_equal(true, result)
+  end
+
+  def test_2_round_2_O_takes_random_corner
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    corners = [0, 3, 12, 15]
+    result = corners.include? move
+    assert_equal(true, result)
+  end
+
+
+  # 5x5 board tests -----------------------------------------------
+
+  def test_1_round_1_X_takes_center
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(12, result)
+  end
+
+  def test_2_round_2_O_takes_center
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(12, result)
+  end
+
+  def test_3_round_2_X_took_center_O_takes_a_random_corner
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    result = p1.corners.include? move
+    assert_equal(true, result)
+  end
+
+  # 6x6 board tests -----------------------------------------------
+
+  def test_1_round_1_X_takes_random_corner
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    corners = [0, 5, 30, 35]
+    result = corners.include? move
+    assert_equal(true, result)
+  end
+
+  def test_2_round_2_O_takes_random_corner
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    corners = [0, 5, 30, 35]
+    result = corners.include? move
+    assert_equal(true, result)
+  end
+
+
+
+
 
 end
