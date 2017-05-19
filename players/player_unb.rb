@@ -75,8 +75,8 @@ class PlayerUnbeatable
       move = block_fork[0]
     elsif @center != nil && [@center] & player + opponent == []
       move = get_cen(player, opponent)
-    else 
-      poison_line(wins, player, opponent)
+    # else 
+    #   poison_line(wins, player, opponent)
     end
   end
 
@@ -84,7 +84,7 @@ class PlayerUnbeatable
   def get_cen(player, opponent)
     taken = player + opponent  # all occupied board positions
     if (taken & @center).size == 0  # if center is open
-      position = 4  # then take it
+      position = @center  # then take it
     else
       get_op_cor(player, opponent)  # otherwise check for opposite corner
     end
@@ -121,11 +121,11 @@ class PlayerUnbeatable
     position = avail_edg.sample  # take one of them
   end
 
-  def poison_line(wins, player, opponent)
-    target_lines = potential_wins(wins, player, opponent)
-    open_positions = target_lines - player
-    position = open_positions[0].sample
-  end
+  # def poison_line(wins, player, opponent)
+  #   target_lines = get_potential_wins(wins, player, opponent)
+  #   open_positions = target_lines - player
+  #   position = open_positions[0].sample
+  # end
 
   #--------------supporting methods for fork_check()---------------
 
