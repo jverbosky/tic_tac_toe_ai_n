@@ -56,197 +56,147 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(4, result)
   end
 
-  # def test_6_round_3_perfect_O_took_center_X_takes_open_corner_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "", "", "O", "", "", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   corners = ["t3", "b1", "b3"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_6_round_3_perfect_O_took_center_X_takes_open_corner_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "O", "", "", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    result = p1.corners.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_7_round_3_perfect_O_took_center_X_takes_open_corner_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "X", "", "O", "", "", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   corners = ["t1", "b1", "b3"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_7_round_3_perfect_O_took_center_X_takes_open_corner_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "X", "", "O", "", "", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    result = p1.corners.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_8_round_3_perfect_O_took_center_X_takes_open_corner_v3
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "", "", "O", "", "X", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   corners = ["t1", "t3", "b3"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_8_round_3_perfect_O_took_center_X_takes_open_corner_v3
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "", "", "O", "", "X", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    result = p1.corners.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_9_round_3_perfect_O_took_center_X_takes_open_corner_v4
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "", "", "O", "", "", "", "X"]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   corners = ["t1", "t3", "b1"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = corners.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_9_round_3_perfect_O_took_center_X_takes_open_corner_v4
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "", "", "O", "", "", "", "X"]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    corners = [0, 2, 6]
+    result = corners.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_10_round_3_O_took_edge_X_takes_center
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "", "", "", "", "", "O", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m2", result)
-  # end
+  def test_10_round_3_O_took_edge_X_takes_center
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "", "", "", "O", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(4, result)
+  end
 
-  # def test_11_round_3_O_took_corner_X_takes_center_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "O", "", "", "", "", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m2", result)
-  # end
+  def test_11_round_3_O_took_corner_X_takes_center_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "O", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(4, result)
+  end
 
-  # def test_12_round_3_O_took_corner_X_takes_center_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["O", "", "X", "", "", "", "", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m2", result)
-  # end
+  def test_12_round_3_O_took_corner_X_takes_center_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "", "X", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(4, result)
+  end
 
-  # def test_13_round_3_O_took_opposite_corner_X_takes_center_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "", "", "", "", "", "", "O"]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m2", result)
-  # end
+  def test_13_round_3_O_took_opposite_corner_X_takes_center_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "", "", "", "", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(4, result)
+  end
 
-  # def test_14_round_3_O_took_opposite_corner_X_takes_center_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "X", "", "", "", "O", "", ""]
-  #   mark = "X"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m2", result)
-  # end
+  def test_14_round_3_O_took_opposite_corner_X_takes_center_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "X", "", "", "", "O", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(4, result)
+  end
 
-  # def test_15_round_4_perfect_X_took_opposite_corner_O_forces_block_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   edges = ["t2", "m1", "m3", "b2"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = edges.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_15_round_4_perfect_X_took_opposite_corner_O_forces_block_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    result = p1.edges.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_16_round_4_perfect_X_took_opposite_corner_O_forces_block_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "X", "", "O", "", "X", "", ""]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   edges = ["t2", "m1", "m3", "b2"]
-  #   move = p1.get_move(wins, x_pos, o_pos, mark)
-  #   result = edges.include? move
-  #   assert_equal(true, result)
-  # end
+  def test_16_round_4_perfect_X_took_opposite_corner_O_forces_block_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "X", "", "O", "", "X", "", ""]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    result = p1.edges.include? move
+    assert_equal(true, result)
+  end
 
-  # def test_17_round_4_X_took_corner_and_adjacent_corner_O_blocks_at_edge_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "", "X", "", "O", "", "", "", ""]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("t2", result)
-  # end
+  def test_17_round_4_X_took_corner_and_adjacent_corner_O_blocks_at_edge_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "X", "", "O", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(1, result)
+  end
 
-  # def test_18_round_4_X_took_corner_and_adjacent_corner_O_blocks_at_edge_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "X", "", "O", "", "", "", "X"]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("m3", result)
-  # end
+  def test_18_round_4_X_took_corner_and_adjacent_corner_O_blocks_at_edge_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "X", "", "O", "", "", "", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(5, result)
+  end
 
-  # def test_19_round_4_X_took_corner_and_adjacent_edge_O_blocks_at_adjacent_corner_v1
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["X", "X", "", "", "O", "", "", "", ""]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("t3", result)
-  # end
+  def test_19_round_4_X_took_corner_and_adjacent_edge_O_blocks_at_adjacent_corner_v1
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "", "", "O", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(2, result)
+  end
 
-  # def test_20_round_4_X_took_corner_and_adjacent_edge_O_blocks_at_adjacent_corner_v2
-  #   game = Game.new
-  #   p1 = PlayerPerfectNS.new
-  #   game.board.game_board = ["", "", "X", "", "O", "X", "", "", ""]
-  #   mark = "O"
-  #   wins = game.win.wins
-  #   x_pos = game.board.get_x
-  #   o_pos = game.board.get_o
-  #   result = p1.get_move(wins, x_pos, o_pos, mark)
-  #   assert_equal("b3", result)
-  # end
+  def test_20_round_4_X_took_corner_and_adjacent_edge_O_blocks_at_adjacent_corner_v2
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["", "", "X", "", "O", "X", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(8, result)
+  end
 
   # def test_21_round_4_X_took_corner_and_non_adjacent_edge_O_blocks_fork_v1
   #   game = Game.new

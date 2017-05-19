@@ -12,8 +12,8 @@ class PlayerUnbeatable
     @wins = wins  # populated via get_move() with all winning positions
     @center = find_center(size)
     @corners = find_corners(size)
-    @opcor_1 = @corners.values_at(0, 2)
-    @opcor_2 = @corners.values_at(1, 3)
+    @opcor_1 = @corners.values_at(0, 3)
+    @opcor_2 = @corners.values_at(1, 2)
     @edges = find_edges(size)
   end
 
@@ -72,12 +72,16 @@ class PlayerUnbeatable
     block_fork = find_fork(opponent, player)
     get_fork = find_fork(player, opponent)
     if get_fork.size > 0  # if possible to create fork, do it
+      # puts "get_fork"
       move = get_fork.sample
     elsif block_fork.size > 1 && @size == 3  # if opponent can create multiple forks, force block
+      # puts "get_adj"
       move = get_adj(player, opponent)
     elsif block_fork.size == 1 && @size == 3  # otherwise if opponent can create fork, block it
+      # puts "block_fork"
       move = block_fork[0]
     else @center != nil && [@center] & player + opponent == []
+      # puts "get_cen"
       move = get_cen(player, opponent)
     # else 
     #   poison_line(player, opponent)
@@ -171,15 +175,23 @@ class PlayerUnbeatable
   def get_adj(player, opponent)
     potential_wins = get_potential_wins(player, opponent)  # get potential wins for player
     o_forks = find_fork(opponent, player)  # get potential forks for opponent
+    # p "o_forks: #{o_forks}"
+    # p "opcor_1: #{@opcor_1}"
+    # p "opcor_2: #{@opcor_2}"
     open_p = []  # array to collect all open positions that could create a player win
     potential_wins.each do |p_win|  # check each win for player and opponent positions
       open_p.push(p_win - player) if (p_win & player).size == 1 && (p_win & opponent).size == 0
     end
     if o_forks == @opcor_1 || o_forks == @opcor_2  # return position to force block without opponent fork
+      # puts "o_forks"
       move = (open_p.flatten - o_forks).sample
     elsif (open_p.flatten & o_forks).size > 0
+      # puts "open_p 1"
+      # puts "open_p: #{open_p}"
+      # puts "o_forks: #{o_forks}"
       move = (open_p.flatten & o_forks).sample
     else
+      # puts "open_p 2"
       move = open_p.flatten.sample
     end
   end
@@ -195,12 +207,12 @@ end
 # win.game_board = board.game_board  # populate Win board for calculating wins
 # win.populate_wins  # populate wins array in Win class
 # unb = PlayerUnbeatable.new(size, win.wins)
-# board.game_board = ["", "", "", "", "X", "", "", "", ""]
+# board.game_board = ["X", "", "", "", "O", "", "", "", "X"]
+
 # p board.get_x
 # p board.get_o
-
 # p unb.center
-# p unb.corners
+# p "corners: #{unb.corners}"
 # p unb.opcor_1
 # p unb.opcor_2
 # p unb.edges
@@ -209,6 +221,7 @@ end
 # p unb.wins
 
 # p unb.get_move(board.get_x, board.get_o, mark)
+
 # p unb.find_edges(size)
 # p unb.check_center(win.wins, board.get_x, board.get_o)
 # p unb.potential_wins(win.wins, board.get_x, board.get_o)
