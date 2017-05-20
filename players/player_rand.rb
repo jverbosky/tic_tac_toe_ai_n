@@ -3,7 +3,7 @@ require_relative "../board/board.rb"
 # class for computer player that randomly places mark
 class PlayerRandom
 
-  # attr_accessor :moves  # use for unit testing
+  attr_accessor :moves  # use for unit testing
 
   def initialize(size)
     @moves = [*0..(size*size)-1]  # board positions
