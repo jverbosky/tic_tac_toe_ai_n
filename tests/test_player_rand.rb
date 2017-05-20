@@ -9,7 +9,7 @@ require_relative "../game/game.rb"
 
 class TestPlayerRandom < Minitest::Test
 
-  def test_1_verify_random_move
+  def test_1_verify_random_move_3x3
     size = 3
     game = Game.new(size)
     p1 = PlayerRandom.new(size)
@@ -18,7 +18,34 @@ class TestPlayerRandom < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_2_verify_random_takes_last_open_position_3x3
+  def test_2_verify_random_move_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerRandom.new(size)
+    move = p1.get_move(game.board.game_board)
+    result = p1.moves.include?(move)
+    assert_equal(true, result)
+  end
+
+    def test_3_verify_random_move_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerRandom.new(size)
+    move = p1.get_move(game.board.game_board)
+    result = p1.moves.include?(move)
+    assert_equal(true, result)
+  end
+
+    def test_4_verify_random_move_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerRandom.new(size)
+    move = p1.get_move(game.board.game_board)
+    result = p1.moves.include?(move)
+    assert_equal(true, result)
+  end
+
+  def test_5_verify_random_takes_last_open_position_3x3
     size = 3
     game = Game.new(size)
     p1 = PlayerRandom.new(size)
@@ -27,7 +54,7 @@ class TestPlayerRandom < Minitest::Test
     assert_equal(0, result)
   end
 
-  def test_3_verify_random_takes_last_open_position_4x4
+  def test_6_verify_random_takes_last_open_position_4x4
     size = 4
     game = Game.new(size)
     p1 = PlayerRandom.new(size)
@@ -36,7 +63,7 @@ class TestPlayerRandom < Minitest::Test
     assert_equal(1, result)
   end
 
-    def test_4_verify_random_takes_last_open_position_5x5
+    def test_7_verify_random_takes_last_open_position_5x5
     size = 5
     game = Game.new(size)
     p1 = PlayerRandom.new(size)
@@ -45,7 +72,7 @@ class TestPlayerRandom < Minitest::Test
     assert_equal(2, result)
   end
 
-    def test_5_verify_random_takes_last_open_position_6x6
+    def test_8_verify_random_takes_last_open_position_6x6
     size = 6
     game = Game.new(size)
     p1 = PlayerRandom.new(size)

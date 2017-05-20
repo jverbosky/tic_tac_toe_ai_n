@@ -8,43 +8,108 @@ require_relative "../game/game.rb"
 
 class TestPlayerSequential < Minitest::Test
 
-  def test_1_verify_t1_board_empty
-    game = Game.new
-    p1 = PlayerSequential.new
+  def test_1_verify_0_board_empty_3x3
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
     result = p1.get_move(game.board.game_board)
-    assert_equal("t1", result)
+    assert_equal(0, result)
   end
 
-  def test_2_verify_t1_board_not_empty
-    game = Game.new
-    p1 = PlayerSequential.new
-    game.board.game_board = ["", "", "", "X", "", "", "O", "", ""]
+  def test_2_verify_0_board_empty_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
     result = p1.get_move(game.board.game_board)
-    assert_equal("t1", result)
+    assert_equal(0, result)
   end
 
-  def test_3_verify_m2
-    game = Game.new
-    p1 = PlayerSequential.new
-    game.board.game_board = ["X", "O", "O", "X", "", "", "", "X", "O"]
+  def test_3_verify_0_board_empty_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
     result = p1.get_move(game.board.game_board)
-    assert_equal("m2", result)
+    assert_equal(0, result)
   end
 
-  def test_4_verify_b1
-    game = Game.new
-    p1 = PlayerSequential.new
-    game.board.game_board = ["X", "O", "X", "O", "X", "O", "", "", ""]
+  def test_4_verify_0_board_empty_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
     result = p1.get_move(game.board.game_board)
-    assert_equal("b1", result)
+    assert_equal(0, result)
   end
 
-  def test_5_verify_b3
-    game = Game.new
-    p1 = PlayerSequential.new
-    game.board.game_board = ["X", "O", "X", "O", "O", "X", "O", "X", ""]
+  def test_5_verify_0_board_not_empty_3x3
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["", "", "", "X", "", "", "", "", ""]
     result = p1.get_move(game.board.game_board)
-    assert_equal("b3", result)
+    assert_equal(0, result)
+  end
+
+  def test_6_verify_0_board_not_empty_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(0, result)
+  end
+
+  def test_7_verify_0_board_not_empty_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["", "", "", "", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(0, result)
+  end
+
+  def test_8_verify_0_board_not_empty_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["", "", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(0, result)
+  end
+
+  def test_9_verify_4_3x3
+    size = 3
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["X", "O", "O", "X", "", "", "", "X", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(4, result)
+  end
+
+  def test_10_verify_4_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["O", "X", "O", "X", "", "", "X", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(4, result)
+  end
+
+    def test_11_verify_4_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["O", "O", "X", "X", "", "", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(4, result)
+  end
+
+    def test_12_verify_4_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerSequential.new(size)
+    game.board.game_board = ["X", "O", "X", "O", "", "", "", "", "X", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    result = p1.get_move(game.board.game_board)
+    assert_equal(4, result)
   end
 
 end
