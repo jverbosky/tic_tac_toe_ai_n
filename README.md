@@ -4,7 +4,7 @@ A web app developed using Ruby, Sinatra, HTML, CSS and JavaScript.
 
 Highlights include:
 
-1. A mobile device friendly UI.
+1. A mobile device friendly UI with a responsive game board.
 2. Game board sizes ranging from 3 x 3 up to 10 x 10.
 3. Support for human and three different types of computer opponents (sequential, random, unbeatable).
 4. Player move validation.
