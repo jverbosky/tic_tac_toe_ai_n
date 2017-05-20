@@ -44,7 +44,7 @@ class PlayerUnbeatable
 
   # Method to return position to win, call block_check() if no wins
   def win_check(player, opponent)
-    puts "win_check()"
+    # puts "win_check()"
     position = []  # placeholder for position that will give 3-in-a-row
     @wins.each do |win|  # check each win pattern
       difference = win - player  # difference between current win array and player position array
@@ -56,7 +56,7 @@ class PlayerUnbeatable
 
   # Method to return position to block, call poison_line() if no blocks
   def block_check(player, opponent)
-    puts "block_check()"
+    # puts "block_check()"
     position = []  # placeholder for position that will block the opponent
     @wins.each do |win|  # check each win pattern
       difference = win - opponent  # difference between current win array and opponent position array
@@ -68,10 +68,17 @@ class PlayerUnbeatable
 
   # Method to create fork, force block if 2+ op forks, block fork if 1 op fork, or call get_cen()
   def fork_check(player, opponent)
-    puts "fork_check()"
+    # puts "fork_check()"
     block_fork = find_fork(opponent, player)
+    # puts "block_fork: #{block_fork}"
     get_fork = find_fork(player, opponent)
-    if get_fork.size > 0  # if possible to create fork, do it
+    # puts "get_fork: #{get_fork}"
+    # p get_fork
+
+    if block_fork.size > 0 && @size > 3
+      move = block_fork.sample
+
+    elsif get_fork.size > 0  # if possible to create fork, do it
       # puts "get_fork"
       move = get_fork.sample
     elsif block_fork.size > 1 && @size == 3  # if opponent can create multiple forks, force block
@@ -88,7 +95,7 @@ class PlayerUnbeatable
 
   # Method to return the center position, or call get_op_cor()
   def get_cen(player, opponent)
-    puts "get_cen()"
+    # puts "get_cen()"
     taken = player + opponent  # all occupied board positions
     # if center is open & board has a true center (3x3, 5x5, etc.)
     if (taken & [@center]).size == 0 && @size % 2 == 1
@@ -100,7 +107,7 @@ class PlayerUnbeatable
 
   # Method to return the corner opposite the opponent's corner or call get_avail_cor()
   def get_op_cor(player, opponent)
-    puts "get_op_cor"
+    # puts "get_op_cor"
     p_corner = (player & @corners)  # determine the player's corners
     o_corner = (opponent & @corners)  # determine the opponent's corners
     if (@opcor_1 & p_corner).size == 0 && (@opcor_1 & o_corner).size == 1
@@ -114,7 +121,7 @@ class PlayerUnbeatable
 
   # Method to return random open corner or call get_avail_edg()
   def get_avail_cor(player, opponent)
-    puts "get_avail_cor"
+    # puts "get_avail_cor"
     taken = player + opponent  # all occupied board positions
     avail_cor = @corners - (@corners & taken)  # determine which corners are taken
     if avail_cor.size > 0  # if there are any open corners
@@ -128,21 +135,21 @@ class PlayerUnbeatable
 
   # Method to return a random open edge
   def get_avail_edg(player, opponent)
-    puts "get_avail_edg"
+    # puts "get_avail_edg"
     taken = player + opponent  # all occupied board positions
     avail_edg = @edges - (@edges & taken)  # determine which edges are taken
     position = avail_edg.sample  # take one of them
   end
 
   def poison_line(player, opponent)
-    puts "poison_line"
+    # puts "poison_line"
     open_positions = @moves - (player + opponent)
-    puts "open_positions: #{open_positions}"
+    # puts "open_positions: #{open_positions}"
     target_lines = get_potential_wins(player, opponent).flatten
-    p "target_lines: #{target_lines}"
+    # p "target_lines: #{target_lines}"
     if target_lines != []
       poison_positions = open_positions & (target_lines - player)
-      puts "poison_positions: #{poison_positions}"
+      # puts "poison_positions: #{poison_positions}"
       position = poison_positions.sample
     else
       position = open_positions.sample
@@ -159,6 +166,7 @@ class PlayerUnbeatable
       forking_moves.push(position) if count > 1
     end
     forking_moves = (forking_moves - (forking_moves & forker))
+    # puts "forking_moves: #{forking_moves}"
     forking_moves.empty? ? [] : forking_moves
   end
 
@@ -172,15 +180,23 @@ class PlayerUnbeatable
         position_counts[position] += 1
       end
     end
+    # puts "position_counts: #{position_counts}"
     return position_counts
   end
 
   # Method to return array of potential wins for forking player
   def get_potential_wins(forker, forkee)
+    # puts "get_potential_wins forker positions: #{forker}"
+    # puts "get_potential_wins forkee positions: #{forkee}"
     potential_wins = []
     @wins.each do |win|
-      potential_wins.push(win) if (forker & win).size > 0 && (forkee & win).size == 0
+      if @size == 3
+        potential_wins.push(win) if (forker & win).size > 0 && (forkee & win).size == 0
+      else
+        potential_wins.push(win) if (forker & win).size > 1 && (forkee & win).size == 0
+      end
     end
+    # puts "potential_wins: #{potential_wins}"
     return potential_wins
   end
 
@@ -213,14 +229,37 @@ end
 
 # Sandbox testing
 
-mark = "X"
-size = 4
-board = Board.new(size)
-win = Win.new(size)
-win.game_board = board.game_board  # populate Win board for calculating wins
-win.populate_wins  # populate wins array in Win class
-unb = PlayerUnbeatable.new(size, win.wins)
-board.game_board = ["O", "", "", "X", "", "", "", "", "", "", "", "", "O", "", "", "X"]
+# mark = "X"
+# size = 5
+# board = Board.new(size)
+# win = Win.new(size)
+# win.game_board = board.game_board  # populate Win board for calculating wins
+# win.populate_wins  # populate wins array in Win class
+# unb = PlayerUnbeatable.new(size, win.wins)
+
+# mark = X, size = 4
+# 5
+# board.game_board = ["X", "O", "", "O", "O", "", "O", "", "X", "", "", "", "X", "O", "X", "X"]
+# 5
+# board.game_board = ["X", "O", "", "X", "", "", "O", "O", "", "O", "", "", "X", "", "", "X"]
+
+# mark = O, size = 4
+# 9
+# board.game_board = ["O", "X", "", "O", "", "X", "", "", "X", "", "X", "", "O", "", "X", "O"]
+# 6
+# board.game_board = ["", "", "X", "O", "X", "", "", "X", "", "", "X", "", "O", "", "", "O"]
+
+# mark = X, size = 5
+# 16
+# board.game_board = ["X", "O", "X", "", "X", "O", "O", "", "", "O", "", "", "X", "", "X", "O", "", "", "O", "O", "X", "O", "X", "", "X"]
+# 16
+# board.game_board = ["X", "O", "O", "", "X", "O", "", "O", "O", "", "X", "O", "X", "X", "X", "", "", "O", "O", "O", "X", "O", "X", "X", "X"]
+
+# mark = O, size = 5
+# 18
+# board.game_board = ["O", "", "X", "", "O", "X", "X", "O", "X", "O", "O", "O", "O", "X", "O", "X", "", "X", "", "X", "O", "O", "X", "X", "X"]
+# 8
+# board.game_board = ["X", "X", "O", "X", "O", "X", "", "X", "", "X", "", "O", "O", "X", "O", "O", "X", "O", "", "", "X", "O", "O", "X", "O"]
 
 # p board.get_x
 # p board.get_o
@@ -233,7 +272,7 @@ board.game_board = ["O", "", "", "X", "", "", "", "", "", "", "", "", "O", "", "
 # p win.wins
 # p unb.wins
 
-p unb.get_move(board.get_x, board.get_o, mark)
+# p unb.get_move(board.get_x, board.get_o, mark)
 
 # p unb.find_edges(size)
 # p unb.check_center(win.wins, board.get_x, board.get_o)
