@@ -90,8 +90,11 @@ Tests have been developed to verify that the methods in each class file and rout
 Unit Tests:
 
 - **test\_board_n.rb** > **/board/board.rb** (17 tests)
-- **test\_game_n.rb** > **/game/game.rb** (29 tests)
-- **test\_messaging_n.rb** > **/game/messaging.rb** (13 tests)
+- **test\_game_n.rb** > **/game/game.rb** (33 tests)
+- **test\_messaging_n.rb** > **/game/messaging.rb** (11 tests)
+- **test\_player_rand_n.rb** > **/players/player\_rand.rb** (8 tests)
+- **test\_player_seq_n.rb** > **/players/player\_seq.rb** (12 tests)
+- **test\_player_unb_n.rb** > **/players/player\_unb.rb** (133 tests)
 - **test\_win_n.rb** > **/game/win.rb** (68 tests)
 
 Front-End Tests:

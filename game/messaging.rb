@@ -1,8 +1,7 @@
 # class to handle web app messaging
 class Messaging
 
-  # @feedback needs to be available to app.rb routes
-  attr_reader :feedback
+  attr_reader :feedback  # @feedback needs to be available to app.rb routes
 
   def initialize
     @feedback = ""  # view messaging - move status or reprompt

@@ -1,6 +1,3 @@
-# note that AI-specific statements are commented out
-# for human-versus-human NxN game
-
 require_relative "messaging.rb"  # class to handle messaging
 require_relative "win.rb"  # class to handle endgame evaluation
 require_relative "../board/board.rb"  # class to handle board updates and queries
