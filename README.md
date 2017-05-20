@@ -1,13 +1,14 @@
-## Tic Tac Toe N AI ##
+## Tic Tac Toe ##
 
 A web app developed using Ruby, Sinatra, HTML, CSS and JavaScript.
 
 Highlights include:
 
 1. A mobile device friendly UI.
-2. Support for human versus human on board sizes from 3x3 up to 10x10.
-3. Player move validation.
-4. Cumulative scoring for multiple games.
+2. Game board sizes ranging from 3 x 3 up to 10 x 10.
+3. Support for human and three different types of computer opponents (sequential, random, unbeatable).
+4. Player move validation.
+5. Cumulative scoring for multiple games.
 
 ----------
 
@@ -16,7 +17,7 @@ Highlights include:
 Please refer to the following sections for details on how to run and play the game:
 
 - Running the Game
-- Player Selection
+- Player and Board Size Selection
 - Move Selection
 - Cumulative Scoring
 
@@ -47,12 +48,20 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 ----------
 
-**Board Size Selection**
+**Player and Board Size Selection**
 
 ----------
 
-1. On the initial screen, use the drop-down to specify the desired board size.  Sizes range from 3x3 up to 10x10.
-2. Click the **Submit** button.
+1. On the initial screen, use the **Player 1 (X)** and **Player 2 (O)** drop-downs to specify the desired player type:
+
+	- **Human** - a human player where moves can be specified by the player
+	- **Random** - a computer player that randomly selects an open position
+	- **Sequential** - a computer player that selects the next open position
+	- **Unbeatable** - an unbeatable computer player based primarily on Newell and Simon's tic-tac-toe program [rules](https://en.wikipedia.org/wiki/Tic-tac-toe#Strategy), with slight adjustments for boards larger than 3 x 3.  
+
+2. Use the **Board Size** drop-down to to specify the desired board size.  Sizes range from 3 x 3 up to 10 x 10. 
+
+3. Click the **Submit** button to begin the game.
 
 ----------
 
@@ -60,9 +69,31 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 ----------
 
-1. Player X selects a desired board space by clicking or tapping on it.
-2. Player O selects a desired board space by clicking or tapping on it.
+**Human versus Human**
+
+1. Player X selects a desired board position by clicking (or tapping) on it.
+2. Player O selects a desired board position by clicking (or tapping) on it.
 3. Continue taking turns until a player wins or the game ends in a tie.
+
+**Human versus Computer**
+
+1. The human player selects a desired board position by clicking or tapping on it.
+2. The computer player will automatically select a board position.
+3. Continue selecting board positions until a player wins or the game ends in a tie.
+
+**Computer versus Computer**
+
+1. Player X will automatically select a board position in round 1. 
+2. For round 2, click (or tap) anywhere on the game board to prompt the computer players to select board positions.
+3. Continue clicking (or tapping) on the game board to prompt the computer players to move, until a player wins or the game ends in a tie.
+
+----------
+
+**Endgame Results**
+
+----------
+
+Once the game is over, the winner will be announced.  To start a new game, click (or tap) the **Play** button.
 
 ----------
 
@@ -89,17 +120,17 @@ Tests have been developed to verify that the methods in each class file and rout
 
 Unit Tests:
 
-- **test\_board_n.rb** > **/board/board.rb** (17 tests)
-- **test\_game_n.rb** > **/game/game.rb** (33 tests)
-- **test\_messaging_n.rb** > **/game/messaging.rb** (11 tests)
-- **test\_player_rand_n.rb** > **/players/player\_rand.rb** (8 tests)
-- **test\_player_seq_n.rb** > **/players/player\_seq.rb** (12 tests)
-- **test\_player_unb_n.rb** > **/players/player\_unb.rb** (133 tests)
-- **test\_win_n.rb** > **/game/win.rb** (68 tests)
+- **test\_board\_n.rb** > **/board/board.rb** (17 tests)
+- **test\_game\_n.rb** > **/game/game.rb** (33 tests)
+- **test\_messaging\_n.rb** > **/game/messaging.rb** (11 tests)
+- **test\_player\_rand\_n.rb** > **/players/player\_rand.rb** (8 tests)
+- **test\_player\_seq\_n.rb** > **/players/player\_seq.rb** (12 tests)
+- **test\_player\_unb\_n.rb** > **/players/player\_unb.rb** (133 tests)
+- **test\_win\_n.rb** > **/game/win.rb** (68 tests)
 
 Front-End Tests:
 
-- **test_app_n.rb** > **/app.rb** (7 tests, 49 assertions)
+- **test\_app\_n.rb** > **/app.rb** (7 tests, 49 assertions)
 
 ----------
 
@@ -167,19 +198,19 @@ As with the unit tests, the required "unit test" versions of *attr\_accessor* an
 1. Navigate to the **/tests** directory in a terminal (command prompt) session.
 2. Run the following command for the front-end test:
 
-	`ruby test_app_n.rb`
+	ruby test_app_n.rb
 
 The resulting output will indicate the success of the front-end tests and assertions:
 
-	Run options: --seed 3557
+	Run options: --seed 3611
 
 	# Running:
 
-	....
+	.......
 
-	Finished in 0.107661s, 37.1536 runs/s, 278.6523 assertions/s.
+	Finished in 0.198960s, 35.1830 runs/s, 246.2807 assertions/s.
 
-	4 runs, 30 assertions, 0 failures, 0 errors, 0 skips
+	7 runs, 49 assertions, 0 failures, 0 errors, 0 skips
 
 ----------
 
