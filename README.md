@@ -99,7 +99,7 @@ Unit Tests:
 
 Front-End Tests:
 
-- **test_app_n.rb** > **/app.rb** (4 tests, 30 assertions)
+- **test_app_n.rb** > **/app.rb** (7 tests, 49 assertions)
 
 ----------
 

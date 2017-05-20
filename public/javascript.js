@@ -51,7 +51,6 @@ for (var i = 0; i < cells.length; i++) {
     // Track with onclick
     cell.onclick = function () {
         // alert("I am position " + this.positionIndex + " (out of " + this.totalCells + " cells)");
-        // post('/result_human', {location: this.positionIndex});
         post('/play', {location: this.positionIndex});
     };
 }

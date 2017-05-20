@@ -1,4 +1,4 @@
-// Just use JavaScript to replace HTML with images (for game over)
+// Just use JavaScript to replace HTML with images (for setup and game over views)
 
 var table = document.getElementById("table_id");
 var cells = table.getElementsByTagName("td");

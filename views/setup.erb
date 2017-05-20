@@ -3,7 +3,7 @@
 <p>Please select the player types and board size:</p>
 <form method="post" action="start_game">
   <p>Player 1 (X):
-    <select type="text" name="setup[p1_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
+    <select type="text" name="setup[p1_type]">
       <option value="Human">Human</option>
       <option value="Random">Random</option>
       <option value="Sequential">Sequential</option>
@@ -11,7 +11,7 @@
     </select>
   </p>
   <p>Player 2 (O):
-    <select type="text" name="setup[p2_type]">  <!-- text == string, name ~ "@num = params[:player_type]" in app.rb -->
+    <select type="text" name="setup[p2_type]">
       <option value="Human">Human</option>
       <option value="Random">Random</option>
       <option value="Sequential">Sequential</option>

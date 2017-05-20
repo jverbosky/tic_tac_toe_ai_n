@@ -1,6 +1,6 @@
 /*
 /public/styles.css
-- CSS styles for Hangman app
+- CSS styles for Tic Tac Toe app
 */
 
 body {
@@ -51,10 +51,6 @@ img {
   margin-right: auto;
 }
 
-/*.padding {
-  padding: 15px;
-}*/
-
 .score {
   font-size: 20px;
   font-weight: bold;
@@ -78,32 +74,3 @@ img {
 .legend {
   border: 1px solid black;
 }
-
-/*.wide {
-  width: 100px;
-}*/
-
-/*.red {
-  background-color: red;
-}
-
-.blue {
-  background-color:  blue;
-}
-
-.yellow {
-  background-color: yellow;
-}*/
-
-/* Use these two classes to position copyright bottom/middle of the page*/
-/* Note - doesn't work well on mobile, research more later */
-
-/*.center {
-  text-align: center;
-}
-
-.copyright {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-}*/
