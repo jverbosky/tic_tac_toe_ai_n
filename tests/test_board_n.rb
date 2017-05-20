@@ -1,9 +1,6 @@
 # be sure to use the unit test version of attr_ in board.rb
 # - attr_accessor in /board/board.rb
 
-# assert_equal()
-# what you expect on left, result on right
-
 require "minitest/autorun"
 require_relative "../board/board.rb"
 

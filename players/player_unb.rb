@@ -1,26 +1,29 @@
-require_relative "../board/board.rb"
-require_relative "../game/win.rb"  # for sandbox testing
+# require_relative "../board/board.rb"
+# require_relative "../game/win.rb"  # for sandbox testing
 
-# class for unbeatable computer player
+# class for unbeatable computer player on NxN board
 class PlayerUnbeatable
 
-  attr_reader :center, :corners, :opcor_1, :opcor_2, :edges, :wins  # for sandbox testing
+  # attr_reader :center, :corners, :opcor_1, :opcor_2, :edges  # use for unit testing
 
   def initialize(size, wins)
     @size = size
     @moves = [*0..(size * size) - 1]  # board positions
     @wins = wins  # populated via get_move() with all winning positions
-    @center = find_center(size)
-    @corners = find_corners(size)
-    @opcor_1 = @corners.values_at(0, 3)
-    @opcor_2 = @corners.values_at(1, 2)
-    @edges = find_edges(size)
+    @center = find_center(size)  # "absolute" center position
+    @corners = find_corners(size)  # corner positions
+    @opcor_1 = @corners.values_at(0, 3)  # opposite corners (set 1)
+    @opcor_2 = @corners.values_at(1, 2)  # opposite corners (set 2)
+    @edges = find_edges(size)  # edge positions
   end
 
+  # Method to populate @center during initialization
   def find_center(size)
+    # assign center to "absolute" center or nil if none
     size % 2 == 1 ? center = (size * size - 1) / 2 : center = nil
   end
 
+  # Method to populate @corners during initialization
   def find_corners(size)
     cor_1 = 0  # size - size
     cor_2 = size - 1
@@ -29,6 +32,7 @@ class PlayerUnbeatable
     corners = [cor_1, cor_2, cor_3, cor_4]
   end
 
+  # Method to populate @edges during initialization
   def find_edges(size)
     t_edges = @wins.values_at(0)[0] - @corners
     b_edges = @wins.values_at(size - 1)[0] - @corners
@@ -37,6 +41,7 @@ class PlayerUnbeatable
     edges = t_edges + b_edges + l_edges + r_edges
   end
 
+  # Method to drive other move selection methods
   def get_move(x_pos, o_pos, mark)
     # Use current mark (X/O) to determine  current player, then call appropriate method to get position
     mark == "X" ? position = win_check(x_pos, o_pos) : position = win_check(o_pos, x_pos)
@@ -68,15 +73,15 @@ class PlayerUnbeatable
   def fork_check(player, opponent)
     block_fork = find_fork(opponent, player)
     get_fork = find_fork(player, opponent)
-    if block_fork.size > 0 && @size > 3
+    if block_fork.size > 0 && @size > 3  # prioritize fork blocking for boards 4x4 and up, if possible
       move = block_fork.sample
-    elsif get_fork.size > 0  # if possible to create fork, do it
+    elsif get_fork.size > 0  # prioritize fork creation for 3x3 boards, if possible
       move = get_fork.sample
-    elsif block_fork.size > 1 && @size == 3  # if opponent can create multiple forks, force block
+    elsif block_fork.size > 1 && @size == 3  # 3x3 boards: if opponent can create multiple forks, force block
       move = get_adj(player, opponent)
-    elsif block_fork.size == 1 && @size == 3  # otherwise if opponent can create fork, block it
+    elsif block_fork.size == 1 && @size == 3  # 3x3 boards: otherwise if opponent can create fork, block it
       move = block_fork[0]
-    else @center != nil && [@center] & player + opponent == []
+    else @center != nil && [@center] & player + opponent == []  # otherwise take (true) center
       move = get_cen(player, opponent)
     end
   end
@@ -112,9 +117,9 @@ class PlayerUnbeatable
     if avail_cor.size > 0  # if there are any open corners
       position = avail_cor.sample  # take one of them
     elsif @size == 3
-      position = get_avail_edg(player, opponent)  # otherwise take an open edge
+      position = get_avail_edg(player, opponent)  # otherwise take an open edge (3x3 only)
     else 
-      poison_line(player, opponent)
+      poison_line(player, opponent)  # otherwise check for poison positions (4x4 and up)
     end
   end
 
@@ -125,14 +130,16 @@ class PlayerUnbeatable
     position = avail_edg.sample  # take one of them
   end
 
+  # Method to "poison" winning lines on boards larger than 3x3
   def poison_line(player, opponent)
     open_positions = @moves - (player + opponent)
     target_lines = get_potential_wins(player, opponent).flatten
-    if target_lines != []
+    if target_lines != []  # target winning lines that are not empty
+      # positions for target lines that contain opponent marks
       poison_positions = open_positions & (target_lines - player)
-      position = poison_positions.sample
+      position = poison_positions.sample  # take a random position to poison line
     else
-      position = open_positions.sample
+      position = open_positions.sample  # otherwise take a random position (catchall)
     end
   end
 
@@ -193,55 +200,3 @@ class PlayerUnbeatable
   end
 
 end
-
-# Sandbox testing
-
-# mark = "X"
-# size = 5
-# board = Board.new(size)
-# win = Win.new(size)
-# win.game_board = board.game_board  # populate Win board for calculating wins
-# win.populate_wins  # populate wins array in Win class
-# unb = PlayerUnbeatable.new(size, win.wins)
-
-# mark = X, size = 4
-# 5
-# board.game_board = ["X", "O", "", "O", "O", "", "O", "", "X", "", "", "", "X", "O", "X", "X"]
-# 5
-# board.game_board = ["X", "O", "", "X", "", "", "O", "O", "", "O", "", "", "X", "", "", "X"]
-
-# mark = O, size = 4
-# 9
-# board.game_board = ["O", "X", "", "O", "", "X", "", "", "X", "", "X", "", "O", "", "X", "O"]
-# 6
-# board.game_board = ["", "", "X", "O", "X", "", "", "X", "", "", "X", "", "O", "", "", "O"]
-
-# mark = X, size = 5
-# 16
-# board.game_board = ["X", "O", "X", "", "X", "O", "O", "", "", "O", "", "", "X", "", "X", "O", "", "", "O", "O", "X", "O", "X", "", "X"]
-# 16
-# board.game_board = ["X", "O", "O", "", "X", "O", "", "O", "O", "", "X", "O", "X", "X", "X", "", "", "O", "O", "O", "X", "O", "X", "X", "X"]
-
-# mark = O, size = 5
-# 18
-# board.game_board = ["O", "", "X", "", "O", "X", "X", "O", "X", "O", "O", "O", "O", "X", "O", "X", "", "X", "", "X", "O", "O", "X", "X", "X"]
-# 8
-# board.game_board = ["X", "X", "O", "X", "O", "X", "", "X", "", "X", "", "O", "O", "X", "O", "O", "X", "O", "", "", "X", "O", "O", "X", "O"]
-
-# p board.get_x
-# p board.get_o
-# p unb.center
-# p "corners: #{unb.corners}"
-# p unb.opcor_1
-# p unb.opcor_2
-# p unb.edges
-
-# p win.wins
-# p unb.wins
-
-# p unb.get_move(board.get_x, board.get_o, mark)
-
-# p unb.find_edges(size)
-# p unb.check_center(win.wins, board.get_x, board.get_o)
-# p unb.potential_wins(win.wins, board.get_x, board.get_o)
-# @move = @player.get_move(@win.wins, @board.get_x, @board.get_o, @m_current)
