@@ -8,13 +8,13 @@ require_relative "../players/player_unb.rb"  # class for unbeatable AI player
 # class to handle game logic
 class Game
 
-  # attr_accessor :move, :round
-  # attr_reader :p1_type, :p2_type, :m_current, :m_next, :pt_next, :pt_current, :messaging
-  attr_accessor :move, :round, :board, :p1_type, :p2_type, :player, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
-  attr_reader :pt_next, :messaging, :win  # use for unit testing
+  attr_accessor :move, :round
+  attr_reader :p1_type, :p2_type, :m_current, :m_next, :pt_next, :pt_current, :messaging
+  # attr_accessor :move, :round, :board, :p1_type, :p2_type, :player, :pt_current, :m_current, :pt_next, :m_next, :board_index  # use for unit testing
+  # attr_reader :pt_next, :messaging, :win  # use for unit testing
 
-  def initialize(size)
-    @size = size
+  def initialize(size)  # size = board size (ex: 3 -> 3x3 board, 4 -> 4x4 board)
+    @size = size  # board size (size x size)
     @board = Board.new(size)  # Board class instance
     @messaging = Messaging.new  # Messaging class instance, accessible to app.rb
     @win = Win.new(size)  # Win class instance
@@ -22,9 +22,9 @@ class Game
     @win.populate_wins  # populate wins array in Win class
     @round = 1  # current game round
     @p1 = ""  # Player object instance for X
-    @p1_type = ""  # X player type ("Human", "Perfect", "Random", "Sequential")
+    @p1_type = ""  # X player type ("Human", "Unbeatable", "Random", "Sequential")
     @p2 = ""  # Player object instance for O
-    @p2_type = ""  # O player type ("Human", "Perfect", "Random", "Sequential")
+    @p2_type = ""  # O player type ("Human", "Unbeatable", "Random", "Sequential")
     @player = ""  # used to generically collect AI player move
     @pt_current = ""  # view messaging - current player type
     @pt_next = ""  # view messaging - next player type
@@ -80,7 +80,7 @@ class Game
 
   # Method to assign move to @move instance variable for ease-of-access
   def human_move(move)
-    @move = move.to_i
+    @move = move.to_i  # POST value is a string, so convert to integer
   end
 
   # Method to collect move from AI player instance
@@ -112,7 +112,6 @@ class Game
 
   # Method to handle endgame items (winning positions, scoring, winner)
   def end_game
-    # @messaging.win = @position.map_win(@win.win)  # human friendly locations for messaging
     if @win.x_won?  # if X won
       $x_score += 1  # increment global $x_score
       return "X"  # return "X" for messaging evaluation

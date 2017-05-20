@@ -1,6 +1,3 @@
-# require_relative "../board/board.rb"
-# require_relative "../game/win.rb"  # for sandbox testing
-
 # class for unbeatable computer player on NxN board
 class PlayerUnbeatable
 
@@ -71,8 +68,8 @@ class PlayerUnbeatable
 
   # Method to create fork, force block if 2+ op forks, block fork if 1 op fork, or call get_cen()
   def fork_check(player, opponent)
-    block_fork = find_fork(opponent, player)
-    get_fork = find_fork(player, opponent)
+    block_fork = find_fork(opponent, player)  # forks for opponent
+    get_fork = find_fork(player, opponent)  # forks for player
     if block_fork.size > 0 && @size > 3  # prioritize fork blocking for boards 4x4 and up, if possible
       move = block_fork.sample
     elsif get_fork.size > 0  # prioritize fork creation for 3x3 boards, if possible
@@ -190,12 +187,12 @@ class PlayerUnbeatable
     potential_wins.each do |p_win|  # check each win for player and opponent positions
       open_p.push(p_win - player) if (p_win & player).size == 1 && (p_win & opponent).size == 0
     end
-    if o_forks == @opcor_1 || o_forks == @opcor_2  # return position to force block without opponent fork
-      move = (open_p.flatten - o_forks).sample
-    elsif (open_p.flatten & o_forks).size > 0
-      move = (open_p.flatten & o_forks).sample
+    if o_forks == @opcor_1 || o_forks == @opcor_2  # if opponent has opposite corners, can result in fork
+      move = (open_p.flatten - o_forks).sample  # so return position to force block without opponent fork
+    elsif (open_p.flatten & o_forks).size > 0  # else if no risk of creating opponent fork
+      move = (open_p.flatten & o_forks).sample  # return any forking position
     else
-      move = open_p.flatten.sample
+      move = open_p.flatten.sample  # otherwise take a random open position
     end
   end
 

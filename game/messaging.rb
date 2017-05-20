@@ -7,9 +7,9 @@ class Messaging
     @feedback = ""  # view messaging - move status or reprompt
   end
 
-  # Method to update @feedback and @prompt if move is valid
+  # Method to update @feedback if move is valid
   def valid_move(round, move, pt_current, m_current, pt_next, m_next)
-    @feedback = ""
+    @feedback = ""  # reset feedback to empty string in case invalid_move() called
   end
 
   # Method to update @feedback with reprompt text if move is invalid
