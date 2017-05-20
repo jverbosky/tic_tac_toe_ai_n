@@ -2,16 +2,11 @@
 # - attr_accessor in board.rb
 # - attr_reader in game.rb
 
-### Need to write tests for indidual methods in player_perf.rb
-### Currently only testing get_move() method
-
 require "minitest/autorun"
 require_relative "../players/player_unb.rb"
 require_relative "../game/game.rb"
 
 class TestPlayerPerfectNS < Minitest::Test
-
-  # 3x3 board tests -----------------------------------------------
 
   def test_1_round_1_X_takes_center
     size = 3
@@ -1000,9 +995,7 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
-  # 4x4 board tests -----------------------------------------------
-
-  def test_1_round_1_X_takes_random_corner
+  def test_107_round_1_X_takes_random_corner_4x4
     size = 4
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1012,7 +1005,7 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_2_round_2_O_takes_random_corner
+  def test_108_round_2_O_takes_random_corner_4x4
     size = 4
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1023,10 +1016,79 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
+  def test_109_X_takes_win_on_extended_board_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "", "X", "", "O", "", "", "O", "", "O", "", "X", "", "O", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(2, result)
+  end
 
-  # 5x5 board tests -----------------------------------------------
+  def test_110_O_takes_win_on_extended_board_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "O", "X", "", "", "", "", "", "", "O", "", "X", "", "O", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(6, result)
+  end
 
-  def test_1_round_1_X_takes_center
+  def test_111_X_blocks_win_on_extended_board_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "O", "X", "", "", "", "", "", "", "O", "", "X", "", "O", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(6, result)
+  end
+
+  def test_112_O_blocks_win_on_extended_board_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "", "X", "", "O", "", "", "O", "", "", "", "X", "", "O", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(2, result)
+  end
+
+  def test_113_X_blocks_fork_on_extended_board_v1_4x4
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "", "O", "O", "", "O", "", "X", "", "", "", "X", "O", "X", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(5, result)
+  end
+
+  def test_114_X_blocks_fork_on_extended_board_4x4_v2
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "", "X", "", "", "O", "O", "", "O", "", "", "X", "", "", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(5, result)
+  end
+
+  def test_115_O_blocks_fork_on_extended_board_4x4_v1
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "X", "", "O", "", "X", "", "", "X", "", "X", "", "O", "", "X", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(9, result)
+  end
+
+  def test_116_O_blocks_fork_on_extended_board_4x4_v2
+    size = 4
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "X", "", "O", "", "X", "", "", "X", "", "X", "", "O", "", "X", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(9, result)
+  end
+
+  def test_117_round_1_X_takes_center_5x5
     size = 5
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1034,7 +1096,7 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(12, result)
   end
 
-  def test_2_round_2_O_takes_center
+  def test_118_round_2_O_takes_center_5x5
     size = 5
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1043,7 +1105,7 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(12, result)
   end
 
-  def test_3_round_2_X_took_center_O_takes_a_random_corner
+  def test_119_round_2_X_took_center_O_takes_a_random_corner_5x5
     size = 5
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1053,9 +1115,81 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
-  # 6x6 board tests -----------------------------------------------
+  def test_120_X_takes_win_on_extended_board_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "X", "X", "X", "", "O", "", "", "", "O", "", "", "", "", "", "O", "", "", "O", "", "", "", "", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(1, result)
+  end
 
-  def test_1_round_1_X_takes_random_corner
+  def test_121_O_takes_win_on_extended_board_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "", "", "X", "", "O", "", "", "", "", "", "", "", "", "", "O", "X", "", "X", "", "O", "", "X", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(11, result)
+  end
+
+  def test_122_X_blocks_win_on_extended_board_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "", "", "X", "", "O", "", "", "", "", "", "", "", "", "", "O", "", "", "X", "", "O", "", "X", ""]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(11, result)
+  end
+
+  def test_123_O_blocks_win_on_extended_board_5x5
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "", "X", "X", "X", "", "O", "", "", "", "O", "", "", "", "", "", "O", "", "", "O", "", "", "", "", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(1, result)
+  end
+
+  def test_124_X_blocks_fork_on_extended_board_5x5_v1
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "X", "", "X", "O", "O", "", "", "O", "", "", "X", "", "X", "O", "", "", "O", "O", "X", "O", "X", "", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(16, result)
+  end
+
+  def test_125_X_blocks_fork_on_extended_board_5x5_v2
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "O", "O", "", "X", "O", "", "O", "O", "", "X", "O", "X", "X", "X", "", "", "O", "O", "O", "X", "O", "X", "X", "X"]
+    move = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    blocks = [6, 16]
+    result = blocks.include? move
+    assert_equal(true, result)
+  end
+
+  def test_126_O_blocks_fork_on_extended_board_5x5_v1
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "", "X", "", "O", "X", "X", "O", "X", "O", "O", "O", "O", "X", "O", "X", "", "X", "", "X", "O", "O", "X", "X", "X"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(18, result)
+  end
+
+  def test_127_O_blocks_fork_on_extended_board_5x5_v2
+    size = 5
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "O", "X", "O", "X", "", "X", "", "X", "", "O", "O", "X", "O", "O", "X", "O", "", "", "X", "O", "O", "X", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(8, result)
+  end
+
+  def test_128_round_1_X_takes_random_corner_6x6
     size = 6
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1065,7 +1199,7 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
-  def test_2_round_2_O_takes_random_corner
+  def test_129_round_2_O_takes_random_corner_6x6
     size = 6
     game = Game.new(size)
     p1 = PlayerUnbeatable.new(size, game.win.wins)
@@ -1076,8 +1210,40 @@ class TestPlayerPerfectNS < Minitest::Test
     assert_equal(true, result)
   end
 
+  def test_130_X_takes_win_on_extended_board_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "X", "X", "", "X", "", "", "", "O", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "O", "O", "", "", "", "O", "", "", "", "", "", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(4, result)
+  end
 
+  def test_131_O_takes_win_on_extended_board_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "", "", "", "", "X", "", "O", "", "", "", "X", "O", "", "", "X", "", "", "", "X", "", "O", "", "", "X", "", "", "", "O", "", "X", "", "", "", "X", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(14, result)
+  end
 
+  def test_132_X_blocks_win_on_extended_board_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["O", "", "", "", "", "X", "", "O", "", "", "", "X", "", "", "", "", "", "", "", "X", "", "O", "", "", "X", "", "", "", "O", "", "", "", "", "", "X", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "X")
+    assert_equal(14, result)
+  end
 
+  def test_133_O_blocks_win_on_extended_board_6x6
+    size = 6
+    game = Game.new(size)
+    p1 = PlayerUnbeatable.new(size, game.win.wins)
+    game.board.game_board = ["X", "X", "X", "X", "", "X", "", "", "", "O", "", "", "", "", "", "", "", "X", "", "", "", "", "", "", "O", "O", "", "", "", "O", "", "", "", "", "", "O"]
+    result = p1.get_move(game.board.get_x, game.board.get_o, "O")
+    assert_equal(4, result)
+  end
 
 end
