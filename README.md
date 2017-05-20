@@ -1,11 +1,11 @@
-## Tic Tac Toe N ##
+## Tic Tac Toe N AI ##
 
 A web app developed using Ruby, Sinatra, HTML, CSS and JavaScript.
 
 Highlights include:
 
 1. A mobile device friendly UI.
-2. Support for human versus human on board sizes from 3x3 up to 12x12.
+2. Support for human versus human on board sizes from 3x3 up to 10x10.
 3. Player move validation.
 4. Cumulative scoring for multiple games.
 
@@ -28,7 +28,7 @@ Please refer to the following sections for details on how to run and play the ga
 
 To open the game from any Internet-connected device, use the following URL:
 
-[https://tic-tac-toe-n-jv.herokuapp.com/](https://tic-tac-toe-n-jv.herokuapp.com/)
+[https://tic-tac-toe-n-ai-jv.herokuapp.com/](https://tic-tac-toe-n-ai-jv.herokuapp.com/)
 
 ----------
 
@@ -51,7 +51,7 @@ To open the game locally once it is running via *rackup*, use the following URL:
 
 ----------
 
-1. On the initial screen, use the drop-down to specify the desired board size.  Sizes range from 3 x 3 up to 12 x 12.
+1. On the initial screen, use the drop-down to specify the desired board size.  Sizes range from 3x3 up to 10x10.
 2. Click the **Submit** button.
 
 ----------
